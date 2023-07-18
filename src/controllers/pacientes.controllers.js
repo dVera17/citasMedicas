@@ -25,7 +25,21 @@ const findNextCitation = (req, res) => {
     }
 }
 
+const findPatientsCommonDoctor = (req, res) => {
+    try {
+        const conn = getConn();
+        const { id_medico } = req.params;
+        conn.query(`SELECT u.usu_id, u.usu_nombre, u.usu_primer_apellido_usuar, u.usu_email FROM usuario u JOIN cita c ON u.usu_id =c.cit_datosUsuario JOIN medico m ON c.cit_medico = m.med_nroMatriculaProsional WHERE m.med_nroMatriculaProsional = ${id_medico};`, (err, data, fields) => {
+            if(err) console.log(err);
+            res.send(data);
+        });
+    } catch (error) {
+        res.status(500).send(error)
+    }
+}
+
 export const methodsUsers = {
     getAllUsersAlphabe,
-    findNextCitation
+    findNextCitation,
+    findPatientsCommonDoctor
 }
