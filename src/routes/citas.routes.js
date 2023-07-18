@@ -3,6 +3,6 @@ import { methodsCitas } from "../controllers/citas.controllers.js";
 
 const router = Router();
 
-router.use('/', methodsCitas.getAllCitationAlphabe);
+router.get('/', methodsCitas.getAllCitationAlphabe);
 
 export default router;
